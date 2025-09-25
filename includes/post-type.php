@@ -1,24 +1,24 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function gcd_registrar_post_type() {
+function scd_registrar_post_type() {
     $labels = array(
-        'name'               => 'Grupos de Conteúdo',
-        'singular_name'      => 'Grupo de Conteúdo',
-        'menu_name'          => 'Grupos de Conteúdo',
-        'add_new_item'       => 'Adicionar Novo Grupo',
-        'edit_item'          => 'Editar Grupo',
+        'name'               => 'Seções de Conteúdo',
+        'singular_name'      => 'Seção de Conteúdo',
+        'menu_name'          => 'Seções de Conteúdo',
+        'add_new_item'       => 'Adicionar Nova Seção',
+        'edit_item'          => 'Editar Seção',
     );
     $args = array(
-        'label'              => 'Grupo de Conteúdo',
+        'label'              => 'Seção de Conteúdo',
         'labels'             => $labels,
-        'public'             => false, // Não serão páginas públicas individuais
-        'show_ui'            => true,  // Mostra no painel de admin
+        'public'             => false,
+        'show_ui'            => true,
         'show_in_menu'       => true,
-        'menu_icon'          => 'dashicons-networking', // Ícone
-        'supports'           => array( 'title' ), // Suporta apenas título
+        'menu_icon'          => 'dashicons-layout',
+        'supports'           => array( 'title' ),
         'rewrite'            => false,
     );
-    register_post_type( 'grupos_conteudo', $args );
+    register_post_type( 'secao_conteudo', $args );
 }
-add_action( 'init', 'gcd_registrar_post_type' );
+add_action( 'init', 'scd_registrar_post_type' );

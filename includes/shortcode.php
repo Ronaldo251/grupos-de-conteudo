@@ -1,47 +1,40 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function gcd_shortcode_callback( $atts ) {
-    // Carrega os estilos apenas quando o shortcode é usado
-    wp_enqueue_style('gcd-public-styles');
+function scd_shortcode_callback( $atts ) {
+    $atts = shortcode_atts( array( 'id' => 0 ), $atts, 'secao_conteudo' );
+    $secao_id = intval( $atts['id'] );
 
-    // Busca todos os "Grupos de Conteúdo" publicados
-    $query = new WP_Query( array(
-        'post_type' => 'grupos_conteudo',
-        'posts_per_page' => -1,
-        'post_status' => 'publish'
-    ) );
+    if ( !$secao_id || get_post_type($secao_id) !== 'secao_conteudo' ) {
+        return '<p>ID da seção inválido ou não encontrado.</p>';
+    }
 
-    if ( ! $query->have_posts() ) {
-        return '<p>Nenhum grupo de conteúdo encontrado.</p>';
+    wp_enqueue_style('scd-public-styles');
+
+    $grupos = get_post_meta( $secao_id, '_scd_grupos', true );
+
+    if ( empty( $grupos ) ) {
+        return '<p>Esta seção não possui grupos de conteúdo.</p>';
     }
 
     ob_start();
-    echo '<div class="gcd-grid">';
+    echo '<div class="scd-grid">';
 
-    while ( $query->have_posts() ) {
-        $query->the_post();
-        $group_id = get_the_ID();
-        $selected_ids = get_post_meta( $group_id, '_gcd_selected_posts', true );
+    foreach ( $grupos as $grupo ) {
+        echo '<div class="scd-column">';
+        echo '<h3>' . esc_html( $grupo['titulo'] ) . '</h3>';
 
-        echo '<div class="gcd-column">';
-        echo '<h3>' . get_the_title() . '</h3>';
-
-        if ( ! empty( $selected_ids ) ) {
+        if ( ! empty( $grupo['paginas'] ) ) {
             echo '<ul>';
-            foreach ( $selected_ids as $item_id ) {
-                echo '<li><a href="' . get_permalink( $item_id ) . '">' . get_the_title( $item_id ) . '</a></li>';
+            foreach ( $grupo['paginas'] as $pagina ) {
+                echo '<li><a href="' . get_permalink( $pagina['id'] ) . '">' . esc_html( $pagina['titulo'] ) . '</a></li>';
             }
             echo '</ul>';
-        } else {
-            echo '<p>Nenhum item neste grupo.</p>';
         }
-        echo '</div>'; // .gcd-column
+        echo '</div>';
     }
 
-    echo '</div>'; // .gcd-grid
-    wp_reset_postdata();
-
+    echo '</div>';
     return ob_get_clean();
 }
-add_shortcode( 'grupos_de_conteudo', 'gcd_shortcode_callback' );
+add_shortcode( 'secao_conteudo', 'scd_shortcode_callback' );
