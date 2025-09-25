@@ -33,7 +33,7 @@ function scd_carregar_admin_assets( $hook ) {
         );
         wp_localize_script( 'scd-admin-scripts', 'scd_ajax', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
-            'nonce' => wp_create_nonce('scd_admin_nonce') // Nonce para segurança
+            'nonce' => wp_create_nonce('scd_admin_nonce') 
         ));
     }
 }

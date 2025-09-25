@@ -2,17 +2,14 @@ jQuery(document).ready(function($) {
     const container = $('#scd-grupos-wrapper');
     const dataTextarea = $('#scd_grupos_data');
 
-    // Função para gerar um ID único para cada grupo
     const uniqueId = () => 'grupo_' + Math.random().toString(36).substr(2, 9);
 
-    // Carrega os grupos salvos ao iniciar
     function carregarGrupos() {
         const dados = JSON.parse(dataTextarea.val() || '[]');
         dados.forEach(grupoData => criarGrupoNoDOM(grupoData));
         atualizarDados();
     }
 
-    // Cria a representação visual de um grupo
     function criarGrupoNoDOM(grupoData) {
         const grupoId = grupoData.id || uniqueId();
         const grupoTitulo = grupoData.titulo || 'Novo Grupo';
@@ -38,19 +35,16 @@ jQuery(document).ready(function($) {
         container.append(grupoHTML);
     }
 
-    // Adiciona um novo grupo
     $('#scd-add-grupo').on('click', function() {
         criarGrupoNoDOM({});
         atualizarDados();
     });
 
-    // Remove um grupo
     container.on('click', '.scd-remove-grupo', function() {
         $(this).closest('.scd-grupo').remove();
         atualizarDados();
     });
 
-    // Busca AJAX de páginas
     let searchTimeout;
     container.on('keyup', '.scd-search-input', function() {
         clearTimeout(searchTimeout);
@@ -74,7 +68,6 @@ jQuery(document).ready(function($) {
         }, 400);
     });
 
-    // Adiciona página ao grupo
     container.on('click', '.result-item', function() {
         const id = $(this).data('id');
         const titulo = $(this).text();
@@ -88,13 +81,11 @@ jQuery(document).ready(function($) {
         $(this).closest('.scd-search-wrapper').find('.scd-search-input').val('');
     });
 
-    // Remove página do grupo
     container.on('click', '.remove-item', function() {
         $(this).parent('li').remove();
         atualizarDados();
     });
 
-    // Atualiza o textarea com os dados em JSON
     function atualizarDados() {
         const dados = [];
         $('.scd-grupo').each(function() {
@@ -111,24 +102,22 @@ jQuery(document).ready(function($) {
         });
         dataTextarea.val(JSON.stringify(dados));
     }
-    
-    // Evento para atualizar dados ao mudar o título do grupo
+
     container.on('change', '.grupo-titulo', atualizarDados);
 
-    // Habilita a reordenação (Sortable)
-    container.sortable({ // Reordenar GRUPOS
+
+    container.sortable({ 
         handle: '.grupo-header',
         axis: 'y',
         update: atualizarDados
     });
     container.on('mousedown', '.scd-selected-items', function() {
-        $(this).sortable({ // Reordenar PÁGINAS dentro de um grupo
+        $(this).sortable({ 
             axis: 'y',
             update: atualizarDados
         });
     });
 
-    // Esconde resultados da busca ao clicar fora
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.scd-search-wrapper').length) {
             $('.scd-search-results').hide();
