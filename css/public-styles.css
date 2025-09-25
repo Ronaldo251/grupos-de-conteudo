@@ -1,0 +1,29 @@
+.gcd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cria colunas responsivas */
+    gap: 20px;
+}
+.gcd-column {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 5px;
+}
+.gcd-column h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #0073aa;
+    padding-bottom: 10px;
+}
+.gcd-column ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.gcd-column ul li {
+    margin-bottom: 8px;
+}
+.gcd-column ul li a {
+    text-decoration: none;
+}
+.gcd-column ul li a:hover {
+    text-decoration: underline;
+}

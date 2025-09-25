@@ -1,0 +1,10 @@
+.gcd-container { display: flex; gap: 20px; }
+.gcd-search-wrapper, .gcd-selected-wrapper { flex: 1; }
+#gcd-search-input { width: 100%; margin-bottom: 5px; }
+#gcd-search-results { border: 1px solid #ddd; max-height: 200px; overflow-y: auto; background: #fff; }
+#gcd-search-results .result-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; }
+#gcd-search-results .result-item:hover { background: #f0f0f0; }
+#gcd-search-results .no-results { padding: 8px; color: #888; }
+#gcd-selected-items { border: 1px solid #ddd; padding: 10px; min-height: 100px; background: #f9f9f9; }
+#gcd-selected-items li { background: #fff; border: 1px solid #ccc; padding: 5px 10px; margin-bottom: 5px; cursor: move; position: relative; }
+#gcd-selected-items .remove-item { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: red; font-weight: bold; cursor: pointer; }
