@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Seções de Conteúdo Dinâmico
+ * Plugin Name:       Seções de Conteúdos Agrupados
  * Description:       Crie seções contendo grupos de páginas e exiba-as com um shortcode dinâmico.
- * Version:           1.1
- * Author:            Seu Nome
+ * Version:           2.2
+ * Author:            Ronaldo Fraga - MPCE
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;

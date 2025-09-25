@@ -1,13 +1,58 @@
-.scd-grupo { border: 1px solid #ccd0d4; margin-bottom: 15px; background: #fff; }
-.grupo-header { display: flex; align-items: center; gap: 10px; background: #f6f7f7; padding: 10px; border-bottom: 1px solid #ccd0d4; }
-.grupo-header .dashicons-move { cursor: move; color: #888; }
-.grupo-header .grupo-titulo { flex-grow: 1; font-weight: bold; font-size: 14px; }
-.grupo-content { padding: 15px; }
-.scd-selected-items { border: 1px solid #ddd; padding: 10px; min-height: 50px; background: #fdfdfd; margin-bottom: 15px; }
-.scd-selected-items li { background: #fff; border: 1px solid #ccc; padding: 5px 10px; margin-bottom: 5px; cursor: move; position: relative; }
-.scd-selected-items .remove-item { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: red; font-weight: bold; cursor: pointer; }
-.scd-search-wrapper { position: relative; }
-.scd-search-input { width: 100%; }
-.scd-search-results { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #ddd; z-index: 100; max-height: 200px; overflow-y: auto; }
-.scd-search-results .result-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; }
-.scd-search-results .result-item:hover { background: #f0f0f0; }
+/* O container principal que usa Grid Layout para criar as colunas */
+.scd-grid {
+    display: grid;
+    /* Cria colunas responsivas: elas terão no mínimo 280px,
+       mas se ajustarão para preencher o espaço. Em telas menores,
+       ficarão uma abaixo da outra automaticamente. */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px; /* Espaço entre os cards */
+    padding: 10px 0;
+}
+
+/* O estilo de cada card/coluna individualmente */
+.scd-column {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex; /* Adicionado para melhor alinhamento interno */
+    flex-direction: column; /* Adicionado para melhor alinhamento interno */
+}
+
+/* Título do grupo dentro do card */
+.scd-column h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0073aa; /* Cor padrão do WordPress */
+    font-size: 1.2em;
+    color: #1d2327;
+}
+
+/* Lista de links */
+.scd-column ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Faz a lista ocupar o espaço disponível */
+}
+
+.scd-column ul li {
+    margin-bottom: 10px;
+}
+
+.scd-column ul li:last-child {
+    margin-bottom: 0;
+}
+
+.scd-column ul li a {
+    text-decoration: none;
+    color: #0073aa;
+    font-weight: 500;
+}
+
+.scd-column ul li a:hover {
+    text-decoration: underline;
+    color: #005177;
+}

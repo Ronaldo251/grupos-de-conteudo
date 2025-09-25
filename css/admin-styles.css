@@ -1,10 +1,134 @@
-.gcd-container { display: flex; gap: 20px; }
-.gcd-search-wrapper, .gcd-selected-wrapper { flex: 1; }
-#gcd-search-input { width: 100%; margin-bottom: 5px; }
-#gcd-search-results { border: 1px solid #ddd; max-height: 200px; overflow-y: auto; background: #fff; }
-#gcd-search-results .result-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; }
-#gcd-search-results .result-item:hover { background: #f0f0f0; }
-#gcd-search-results .no-results { padding: 8px; color: #888; }
-#gcd-selected-items { border: 1px solid #ddd; padding: 10px; min-height: 100px; background: #f9f9f9; }
-#gcd-selected-items li { background: #fff; border: 1px solid #ccc; padding: 5px 10px; margin-bottom: 5px; cursor: move; position: relative; }
-#gcd-selected-items .remove-item { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: red; font-weight: bold; cursor: pointer; }
+/* Estilo geral do container */
+#scd-container {
+    background-color: #f6f7f7;
+    padding: 15px;
+    border: 1px solid #ccd0d4;
+}
+
+/* --- CORREÇÃO 1: LAYOUT EM COLUNAS --- */
+/* Usamos Flexbox para criar a grade de cards */
+#scd-grupos-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+    gap: 2%;         /* Espaço entre os cards */
+}
+
+/* Estilo do card de cada grupo */
+.scd-grupo {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    /* overflow: hidden; */ /* REMOVIDO: Esta era a causa do problema de sobreposição */
+    
+    /* Define a largura para 2 cards por linha, considerando o 'gap' */
+    width: 49%;
+    box-sizing: border-box; /* Garante que padding e border não afetem a largura total */
+}
+
+/* Cabeçalho do card */
+.grupo-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f6f7f7; /* Um leve destaque para o cabeçalho */
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccd0d4;
+    border-radius: 4px 4px 0 0; /* Arredonda apenas os cantos superiores */
+}
+
+.grupo-header .dashicons-move {
+    cursor: move;
+    color: #888;
+}
+
+.grupo-header .grupo-titulo {
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    box-shadow: none;
+    padding: 5px;
+    background: transparent;
+}
+.grupo-header .grupo-titulo:focus {
+    background: #fff;
+    box-shadow: 0 0 0 1px #3582c4;
+}
+
+/* Conteúdo do card */
+.grupo-content {
+    padding: 15px;
+}
+
+/* Lista de itens selecionados */
+.scd-selected-items {
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 50px;
+    background: #fdfdfd;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+.scd-selected-items li {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: move;
+    position: relative;
+    border-radius: 3px;
+}
+
+.scd-selected-items .remove-item {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- CORREÇÃO 2: SOBREPOSIÇÃO DA BUSCA --- */
+/* Wrapper da busca */
+.scd-search-wrapper {
+    position: relative; /* Essencial para o posicionamento absoluto do filho */
+}
+
+.scd-search-input {
+    width: 100%;
+}
+
+/* Resultados da busca */
+.scd-search-results {
+    position: absolute;
+    top: 100%; /* Posiciona logo abaixo do campo de input */
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    z-index: 999; /* Z-index alto para garantir que fique na frente de tudo */
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+.scd-search-results .result-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.scd-search-results .result-item:hover {
+    background: #f0f0f0;
+}
+
+/* Botão de adicionar novo grupo */
+#scd-add-grupo {
+    font-size: 14px;
+    height: 40px;
+    margin-top: 10px; /* Adiciona um espaço acima do botão */
+}
